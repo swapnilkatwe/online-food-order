@@ -1,12 +1,26 @@
-import demoImg from "../assets/logo.jpg";
-export default function MealItem() {
+import { string } from 'prop-types'
+
+function MealItem({ id, image, name, price, description, onSelect }) {
     return (
             <article className="meal-item ">
-                <img src={demoImg} alt="" />
-                <h3>Chicken curry</h3>
-                <label className="meal-item-price">9.99$</label>
-                <p className="meal-item-description">Creamy cheddar cheese mixed with perfectly cooked macaroni, topped with crispy breadcrumbs. A classic comfort food.</p>
-                <button className="button">Add to Cart</button>
+                <img src={`http://localhost:3000/${image}`} alt="" />
+                <h3>{name}</h3>
+                <label className="meal-item-price">{price}</label>
+                <p className="meal-item-description">{description}</p>
+                <button className="button" onClick={()=> onSelect(id)}>Add to Cart</button>
             </article>
     );
 }
+export default MealItem;
+
+MealItem.propTypes = {
+    id: string,
+    image: string,
+    name: string,
+    price: string,
+    description: string,
+    onSelect: () => {}
+}
+
+
+
