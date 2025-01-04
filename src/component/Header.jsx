@@ -1,4 +1,5 @@
 import logo from "../assets/logo.jpg";
+import Button from "./UI/Button";
 
 export default function Header({ onSelect }) {
   return (
@@ -8,9 +9,9 @@ export default function Header({ onSelect }) {
         <h1>My Food Order App</h1>
       </div>
       <nav>
-        <button className="button" onClick={onSelect}>
+        <Button textOnly onClick={onSelect}>
           Cart(0)
-        </button>
+        </Button>
       </nav>
     </header>
   );

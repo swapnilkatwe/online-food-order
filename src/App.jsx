@@ -3,6 +3,7 @@ import { useState } from "react";
 import Cart from "./component/Cart";
 import Modal from "./component/Modal";
 import Meals from "./component/Meals";
+import { CartContextProvider } from "./store/CartContext";
 
 function App() {
   const [showCart, setShowCart] = useState(false);
@@ -21,7 +22,7 @@ function App() {
   }
 
   return (
-    <>
+    <CartContextProvider>
       <Modal
         open={showCart}
         onClose={handleDismissCart}
@@ -36,7 +37,7 @@ function App() {
       <Header onSelect={handleShowCart} />
       <Meals />
 
-    </>
+    </CartContextProvider>
   );
 }
 
