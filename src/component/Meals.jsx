@@ -19,20 +19,12 @@ export default function Meals() {
     fetchMeals();
   }, []);
 
-  function handleItemAddToCartClick(id) {
-    console.log("clicked:" + id);
-  }
   return (
     <ul id="meals">
       {meals.map((mealItem) => (
         <li key={mealItem.id}>
           <MealItem
-            id={mealItem.id}
-            name={mealItem.name}
-            image={mealItem.image}
-            price={mealItem.price}
-            description={mealItem.description}
-            onSelect={handleItemAddToCartClick}
+            meal={mealItem}
           />
         </li>
       ))}
