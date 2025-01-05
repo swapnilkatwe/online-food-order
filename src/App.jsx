@@ -2,18 +2,17 @@ import Header from "./component/Header";
 import Cart from "./component/Cart";
 import Meals from "./component/Meals";
 import { CartContextProvider } from "./store/CartContext";
+import { UserProgressContextProvider } from "./store/UserProgressContext";
 
 function App() {
-  function handleShowCart() {
-    console.log("show Cart!");
-  }
-
   return (
-    <CartContextProvider>
-      <Cart />
-      <Header onSelect={handleShowCart} />
-      <Meals />
-    </CartContextProvider>
+    <UserProgressContextProvider>
+      <CartContextProvider>
+        <Header />
+        <Meals />
+        <Cart />
+      </CartContextProvider>
+    </UserProgressContextProvider>
   );
 }
 
