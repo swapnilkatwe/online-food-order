@@ -1,23 +1,33 @@
-import {string} from "prop-types";
+import Modal from "./Modal";
+import { useContext } from "react";
+import CartContext from "../store/CartContext";
+import { currencyFormatter } from "../util/Formatting";
+import Button from "./UI/Button";
 
-function Cart({title, onClose, onCheckout}) {
+function Cart() {
+  const cartCtx = useContext(CartContext);
+
+  const cartTotal = cartCtx.items.reduce(
+    (totalPrice, item) => totalPrice + item.quantity * item.price,
+    0
+  );
+
   return (
-    <div className="cart">
-        <h2>Your Cart</h2>
-        <ul>
-            <li className="cart-item">{title}</li>
-            <li>Sea food</li>
-            <li>Sea food</li>
-        </ul>
-        <button onClick={onClose}>Close</button>
-        <button onClick={onCheckout}>Go to Checkout</button>
-    </div>
-  )
+    <Modal open={false} className="cart">
+      <h2>Your Cart</h2>
+      <ul>
+        {cartCtx.items.map((item) => (
+          <li key={item.id} className="cart-item">
+            {item.name}
+          </li>
+        ))}
+      </ul>
+      <p className="cart-total">{currencyFormatter.format(cartTotal)}</p>
+      <p className="modal-actions">
+        <Button textOnly>Close</Button>
+        <Button>Go to Checkout</Button>
+      </p>
+    </Modal>
+  );
 }
 export default Cart;
-
-Cart.propTypes = {
-    title: string,
-    onClose: ()=>{},
-    onCheckout:()=>{}
-}
