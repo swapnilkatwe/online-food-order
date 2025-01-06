@@ -5,19 +5,20 @@ import { currencyFormatter } from "../util/Formatting";
 import Button from "./UI/Button";
 import UserProgressContext from "../store/UserProgressContext";
 import CartItem from "./CartItem";
+import { getCartTotalAmount } from "../util/HelperFunctions";
 
 function Cart() {
   const cartCtx = useContext(CartContext);
-  const cartTotal = cartCtx.items.reduce(
-    (totalPrice, item) => totalPrice + item.quantity * item.price,
-    0
-  );
+  const cartTotal = getCartTotalAmount(cartCtx.items);
+
   const userProgressCtx = useContext(UserProgressContext);
 
   function handleCloseCart() {
     userProgressCtx.hideCart();
   }
-
+  function handleGoToCheckout() {
+    userProgressCtx.showCheckout();
+  }
   return (
     <Modal className="cart" open={userProgressCtx.progress === "cart"}>
       <h2>Your Cart</h2>
@@ -38,7 +39,9 @@ function Cart() {
         <Button textOnly onClick={handleCloseCart}>
           Close
         </Button>
-        <Button onClick={handleCloseCart}>Go to Checkout</Button>
+        {cartCtx.items.length > 0 && (
+          <Button onClick={handleGoToCheckout}>Go to Checkout</Button>
+        )}
       </p>
     </Modal>
   );
