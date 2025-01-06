@@ -21,7 +21,7 @@ export default function Checkout() {
   }
   //
   return (
-    <Modal open={userProgressCtx.progress === "checkout"}>
+    <Modal open={userProgressCtx.progress === "checkout"} onClose={handleClose} >
       <form onSubmit={handleOnSubmit}>
         <h1>Checkout</h1>
         <p> Total Ammount: {currencyFormatter.format(cartTotal)}</p>
