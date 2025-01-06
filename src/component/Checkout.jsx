@@ -15,6 +15,23 @@ export default function Checkout() {
 
   function handleOnSubmit(event) {
     event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const customerData = Object.fromEntries(formData.entries());
+    console.log("form data:" + customerData);
+
+    fetch("http://localhost:3000/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        order: {
+          items: cartCtx.items,
+          customer: customerData,
+        },
+      }),
+    });
   }
   function handleClose() {
     userProgressCtx.hideCheckout();
@@ -26,7 +43,7 @@ export default function Checkout() {
         <h1>Checkout</h1>
         <p> Total Ammount: {currencyFormatter.format(cartTotal)}</p>
 
-        <Input label="Full Name" id="full-name" type="text" />
+        <Input label="Full Name" id="name" type="text" />
         <Input label="Email Address" id="email" type="email" />
         <Input label="Street Address" id="street" type="text" />
 
