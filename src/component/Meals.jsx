@@ -1,5 +1,6 @@
 import MealItem from "./MealItem";
 import useHttp from "../hooks/useHttp";
+import ErrorPage from "./ErrorPage";
 
 const config = {};
 export default function Meals() {
@@ -9,10 +10,12 @@ export default function Meals() {
     error,
   } = useHttp("http://localhost:3000/meals", config, []);
 
-  console.log("data: " + meals);
-
   if (isLoading) {
-    return <p>Fetching meals ...</p>;
+    return <p className="center">Fetching meals ...</p>;
+  }
+
+  if (error) {
+    return <ErrorPage title="Failed to fetch meals" message={error}/>
   }
 
   return (
@@ -25,3 +28,19 @@ export default function Meals() {
     </ul>
   );
 }
+
+
+// API call with useEffect in same file
+// const [meals, setMeals] = useState([]);
+// useEffect(() => {
+//   async function fetchMeals() {
+//     try {
+//       const meals = await getMeals();
+//       console.log("data: " + meals);
+//       setMeals(meals);
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+//   fetchMeals();
+// }, []);
